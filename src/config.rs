@@ -25,6 +25,12 @@ impl Config {
     /// # Errors
     ///
     /// Returns a [`config::ConfigError`] if the file can't be read or parsed.
+    /// # Example
+    ///
+    /// ```
+    /// let config = Config::from_file("config.toml").expect("Failed to load config");
+    /// println!("Listening on port {}", config.port);
+    /// ```
     pub fn from_file(path: &str) -> Result<Self, config::ConfigError> {
         config::Config::builder()
             .add_source(config::File::from(Path::new(path)))
