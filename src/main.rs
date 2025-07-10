@@ -40,9 +40,9 @@ async fn main() -> anyhow::Result<()>{
 
     let app = Router::new()
         .route("/media", get(get_media_list))
-        .route("/media/:filename", get(stream_media))
+        .route("/media/{filename}", get(stream_media))
         .route("/device-info", get(get_device_info))
-        .with_state(state.clone());;
+        .with_state(state.clone());
 
     let addr = SocketAddr::from(([0, 0, 0, 0], state.config.port));
     println!("RustStream [{}] listening on {}", state.config.device_name, addr);

@@ -14,7 +14,7 @@ use crate::state::AppState;
 use axum::{
     body::Body,
     extract::{Path, State},
-    http::{header, HeaderMap, StatusCode},
+    http::{header, StatusCode},
     response::{IntoResponse, Json, Response},
 };
 use mime_guess::MimeGuess;
@@ -88,8 +88,7 @@ pub async fn stream_media(
         Ok(file) => {
             // Convert to a stream of bytes
             let stream = ReaderStream::new(file);
-            // Map the stream item Result<T, E> to Result<Bytes, Error>
-            let body_stream = Body::from_stream(stream.map(Result::unwrap));
+            let body_stream = Body::from_stream(stream);
 
             // Build headers
             let mime = MimeGuess::from_path(&filepath).first_or_octet_stream();
